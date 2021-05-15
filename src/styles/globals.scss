@@ -4,4 +4,31 @@
   padding: 0;
 }
 
-// TODO
+:root {
+  --white: #FFFFFF;
+  --grey-200: rgba(215, 215, 215, 1);
+  --grey-400: rgba(187, 187, 187, 1);
+  --grey-700: rgba(26, 29, 35, 1);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--grey-700);
+  color: var(--white);
+}
+
+body, input, textarea, select, button {
+  font: 400 1.8rem "Inter", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

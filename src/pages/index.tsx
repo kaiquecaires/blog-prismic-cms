@@ -1,10 +1,14 @@
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
+import Head from 'next/head';
 import Prismic from '@prismicio/client';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import { FiCalendar, FiUser } from 'react-icons/fi'
+import { useState } from 'react';
 
 interface Post {
   uid?: string;
@@ -25,13 +29,45 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home<Props>({ next_page, results }: PostPagination) {
+export default function Home({ postsPagination }: HomeProps) {
+  const [posts, setPosts] = useState<Post[]>(postsPagination.results);
+  // const [nextPage, setNextPage] = useState<string>(postsPagination.next_page);
+
   return (
-    <div>Hello world</div>
+    <>
+    <Head>
+      <title>Home | spacetraveling.</title>
+    </Head>
+    <div className={`${commonStyles.commonContainer} ${styles.container}`}>
+      <img src="/Logo.svg" alt="logo" />
+      <div className={styles.posts}>
+        {posts.map(post => (
+          <Link href={`/post/${post.uid}`} key={post.uid}>
+            <a href="">
+              <div className={styles.post}>
+                <strong>{post.data.title}</strong>
+                <p>{post.data.subtitle}</p>
+                <div className={styles.info}>
+                  <time>
+                    <FiCalendar />
+                    {post.first_publication_date}
+                  </time>
+                  <span>
+                    <FiUser />
+                    {post.data.author}
+                  </span>
+                </div>
+              </div>
+            </a>
+          </Link>
+        ))}
+      </div>
+    </div>
+    </>
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query(
     Prismic.Predicates.at('document.type', 'post'),
@@ -57,8 +93,10 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      posts,
-      next_page: postsResponse.next_page
+      postsPagination: {
+        results: posts,
+        next_page: postsResponse.next_page
+      }
     }
   }
 };

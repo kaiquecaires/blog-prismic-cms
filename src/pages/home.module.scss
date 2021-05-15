@@ -1,1 +1,44 @@
-// TODO
+.container {
+  margin-top: 8rem;
+}
+
+.posts {
+  margin-top: 8rem;
+  max-width: 72rem;
+
+  .post {
+    cursor: pointer;
+    margin-bottom: 5rem;
+    transition: filter 0.2s;
+    
+    strong {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 3.389rem;
+    }
+
+    p {
+      color: var(--grey-200);
+      font-size: 1.8rem;
+      line-height: 2.178rem;
+    }
+
+    .info {
+      margin-top: 2.5rem;
+      color: var(--grey-400);
+      font-size: 1.4rem;
+
+      time {
+        margin-right: 3rem;
+      }
+
+      svg {
+        margin-right: 0.8rem;
+      }
+    }
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+}
