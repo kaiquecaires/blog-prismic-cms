@@ -31,7 +31,15 @@ interface HomeProps {
 
 export default function Home({ postsPagination }: HomeProps) {
   const [posts, setPosts] = useState<Post[]>(postsPagination.results);
-  // const [nextPage, setNextPage] = useState<string>(postsPagination.next_page);
+  const [nextPage, setNextPage] = useState<string>(postsPagination.next_page);
+
+  async function handleLoadNextPage() {
+    const response = await fetch(nextPage)
+    .then(response => response.json())
+    .then(response => response);
+
+    console.log(response);
+  }
 
   return (
     <>
@@ -62,6 +70,9 @@ export default function Home({ postsPagination }: HomeProps) {
           </Link>
         ))}
       </div>
+      {nextPage && (
+        <button className={styles.loadPosts} onClick={handleLoadNextPage}>Carregar mais posts</button>
+      )}
     </div>
     </>
   )
@@ -73,7 +84,7 @@ export const getStaticProps: GetStaticProps = async () => {
     Prismic.Predicates.at('document.type', 'post'),
     {
       fetch: ['post.title', 'post.subtitle', 'post.author'],
-      pageSize: 10
+      pageSize: 1
     }
   );
 
