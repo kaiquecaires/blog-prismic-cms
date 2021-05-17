@@ -38,7 +38,24 @@ export default function Home({ postsPagination }: HomeProps) {
     .then(response => response.json())
     .then(response => response);
 
-    console.log(response);
+    const postsFormatted = response.results.map(post => {
+      return {
+        uid: post.uid,
+        first_publication_date: format(
+          new Date(post.first_publication_date),
+          "dd MMM yyyy",
+          {
+            locale: ptBR
+          }
+        ),
+        data: post.data
+      }
+    })
+
+    const newPosts = [...posts, ...postsFormatted]
+
+    setPosts(newPosts);
+    setNextPage(response.next_page)
   }
 
   return (
