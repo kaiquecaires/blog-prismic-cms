@@ -9,6 +9,7 @@ import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
+import Head from 'next/head';
 
 interface Post {
   first_publication_date: string | null;
@@ -47,6 +48,9 @@ export default function Post({ post }: PostProps) {
 
   return (
     <>
+      <Head>
+        <title>{post.data.title} | spacetraveling.</title>
+      </Head>
       <Header />
       <img src={post.data.banner.url} className={styles.banner} alt="banner" />
       <div className={`${styles.container} ${commonStyles.commonContainer}`}>
