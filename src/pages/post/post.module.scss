@@ -1,1 +1,45 @@
-// TODO
+.banner {
+  width: 100%;
+}
+
+.post {
+  margin-top: 8rem;
+
+  .title {
+    font-size: 4.8rem;
+  }
+
+  .postInfo {
+    margin-top: 2.4rem;
+    color: var(--grey-400);
+    font-size: 1.4rem;
+
+    span {
+      margin-left: 3rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    time {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    svg {
+      margin-right: 1rem;
+    }
+  }
+
+  .postContent {
+    margin-top: 6rem;
+    text-align: justify;
+
+    .heading {
+      margin-bottom: 6rem;
+    }
+
+    &:last-child {
+      margin-bottom: 8rem;
+    }
+  }
+}
